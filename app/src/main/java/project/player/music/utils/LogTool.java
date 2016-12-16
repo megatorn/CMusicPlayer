@@ -1,5 +1,7 @@
 package project.player.music.utils;
 
+import android.util.Log;
+
 import project.player.music.BuildConfig;
 
 /**
@@ -32,11 +34,11 @@ public class LogTool
     {
         if(BuildConfig.DEBUG)
         {
-
+            log(tag, Log.VERBOSE, null, message);
         }
     }
 
-    public static void log()
+    public static void log(String tag, int level, Throwable t, Object...message)
     {
 
     }
