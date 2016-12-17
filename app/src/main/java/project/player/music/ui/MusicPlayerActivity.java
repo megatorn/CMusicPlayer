@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import project.player.music.R;
 import project.player.music.utils.LogTool;
 
 /**
@@ -18,5 +19,8 @@ public class MusicPlayerActivity extends AppCompatActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        LogTool.i(TAG, "Main activity created!");
+        setContentView(R.layout.activity_main);
     }
 }

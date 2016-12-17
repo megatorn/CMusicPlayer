@@ -38,8 +38,68 @@ public class LogTool
         }
     }
 
+    public static void d(String tag, Object...message)
+    {
+        if(BuildConfig.DEBUG)
+        {
+            log(tag, Log.DEBUG, null, message);
+        }
+    }
+
+    public static void i(String tag, Object...message)
+    {
+        log(tag, Log.INFO, null, message);
+    }
+
+    public static void w(String tag, Object...message)
+    {
+        log(tag, Log.WARN, null, message);
+    }
+
+    public static void w(String tag, Throwable t, Object...message)
+    {
+        log(tag, Log.WARN, t, message);
+    }
+
+    public static void e(String tag, Object...message)
+    {
+        log(tag, Log.ERROR, null, message);
+    }
+
+    public static void e(String tag, Throwable t, Object...message)
+    {
+        log(tag, Log.ERROR, t, message);
+    }
+
     public static void log(String tag, int level, Throwable t, Object...message)
     {
+        if(Log.isLoggable(tag, level))
+        {
+            String tMesg;
+            if(t == null && message != null && message.length == 1)
+            {
+                tMesg = message[0].toString();
+            }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                if(message != null)
+                {
+                    for(Object m : message)
+                    {
+                        sb.append(m);
+                    }
+                }
 
+                if(t != null)
+                {
+                    sb.append("\n").append(Log.getStackTraceString(t));
+                }
+
+                tMesg = sb.toString();
+            }
+
+            Log.println(level, tag, tMesg);
+        }
     }
 }
