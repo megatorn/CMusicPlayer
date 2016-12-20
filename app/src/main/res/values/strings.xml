@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CMusicPlayer</string>
+    <string name="app_name">Copy Music Player</string>
     <string name="currently_playing_song">Song currently playing</string>
     <string name="currently_playing_artist">Artist of currently playing song</string>
     <string name="currently_playing_extra_info">Extra info for currently playing song</string>
@@ -7,4 +7,7 @@
 
     <string name="drawer_allmusic_title">All Music</string>
     <string name="drawer_playlists_title">Playlists</string>
+    <string name="media_route_menu_title">Play on…</string>
+    <string name="open_content_drawer">Open the main menu</string>
+    <string name="close_content_drawer">Close the main menu</string>
 </resources>
