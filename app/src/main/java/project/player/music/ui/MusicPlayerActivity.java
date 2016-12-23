@@ -1,8 +1,9 @@
 package project.player.music.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class MusicPlayerActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         initializeToolbar();
+
+        initializeFromParams(savedInstanceState, getIntent());
     }
 
     /**菜单点击处理*/
@@ -178,5 +181,21 @@ public class MusicPlayerActivity extends AppCompatActivity
             //将开关图片和actionBar关联
             mDrawerToggle.syncState();
         }
+    }
+
+    private void initializeFromParams(Bundle savedInstanceState, Intent intent)
+    {
+        String mediaId = null;
+        //TODO 从语音检索中开发播放
+        if(intent.getAction() != null && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH))
+        {
+        }
+
+        navigateToBrowser(mediaId);
+    }
+
+    private void navigateToBrowser(String sMedisId)
+    {
+        LogTool.i(TAG, "navigate browser id: " + sMedisId);
     }
 }
