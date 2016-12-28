@@ -8,6 +8,7 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class MediaBrowserFragment extends Fragment
     private View mErrorMsgView;
     private TextView mErrorMsg;
 
+    private BrowseAdapter mBrowserAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -38,7 +41,17 @@ public class MediaBrowserFragment extends Fragment
         mErrorMsgView = rootView.findViewById(R.id.play_error);
         mErrorMsg = (TextView) rootView.findViewById(R.id.error_message);
 
+        mBrowserAdapter = new BrowseAdapter(getActivity());
+
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
+        listView.setAdapter(mBrowserAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+
+            }
+        });
 
         return rootView;
     }
@@ -49,5 +62,23 @@ public class MediaBrowserFragment extends Fragment
         {
             super(context, R.layout.media_list_item, new ArrayList<MediaBrowserCompat.MediaItem>());
         }
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
     }
 }
