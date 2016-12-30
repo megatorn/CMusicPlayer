@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import project.player.music.utils.LogTool;
  * Created by lijie9 on 2016/11/15.
  */
 
-public class MusicPlayerActivity extends AppCompatActivity
+public class MusicPlayerActivity extends AppCompatActivity implements MediaBrowserFragment.MediaFragmentListener
 {
     private static final String TAG = LogTool.makeLogTag(MusicPlayerActivity.class);
 
@@ -227,4 +228,41 @@ public class MusicPlayerActivity extends AppCompatActivity
     {
         return (MediaBrowserFragment) getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
     }
+
+    /**MediaBrowserFragment.MediaFragmentListener CB***********************************************/
+    @Override
+    public void onMediaItemSelected(MediaBrowserCompat.MediaItem item)
+    {
+        LogTool.d(TAG, "onMediaItemSelected, mediaId=" + item.getMediaId());
+        if(item.isPlayable())
+        {
+
+        }
+        else if(item.isBrowsable())
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+    @Override
+    public void setToolbarTitle(CharSequence title)
+    {
+        LogTool.d(TAG, "setting toolbar title to: ", title);
+        if(title == null)
+        {
+            title = getString(R.string.app_name);
+        }
+        setTitle(title);
+    }
+
+    @Override
+    public MediaBrowserCompat getMediaBrowser()
+    {
+        return null;
+    }
+    /**MediaBrowserFragment.MediaFragmentListener CB***********************************************/
 }
