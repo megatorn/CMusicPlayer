@@ -1,5 +1,6 @@
 package project.player.music.ui;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -8,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,6 +31,8 @@ public class MusicPlayerActivity extends AppCompatActivity
 
     private boolean mToolbarInitialized;
     private int mItemToOpenWhenDrawerCloses = -1;
+
+    private static final String FRAGMENT_TAG = "uamp_list_container";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -189,6 +193,7 @@ public class MusicPlayerActivity extends AppCompatActivity
         //TODO 从语音检索中开发播放
         if(intent.getAction() != null && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH))
         {
+            //TODO
         }
 
         navigateToBrowser(mediaId);
@@ -197,5 +202,29 @@ public class MusicPlayerActivity extends AppCompatActivity
     private void navigateToBrowser(String sMedisId)
     {
         LogTool.i(TAG, "navigate browser id: " + sMedisId);
+        MediaBrowserFragment fragment = getBrowserFragment();
+
+        if(fragment == null || !TextUtils.equals(fragment.getMediaId(), sMedisId))
+        {
+            fragment = new MediaBrowserFragment();
+            fragment.setMediaId(sMedisId);
+
+            //TODO unknown
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.animator.slide_in_from_left, R.animator.slide_out_to_right,
+                                            R.animator.slide_in_from_right, R.animator.slide_out_to_left);
+            transaction.replace(R.id.container, fragment, FRAGMENT_TAG);
+
+            if(sMedisId != null)
+            {
+                transaction.addToBackStack(null);
+            }
+            transaction.commit();
+        }
+    }
+
+    private MediaBrowserFragment getBrowserFragment()
+    {
+        return (MediaBrowserFragment) getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
     }
 }
